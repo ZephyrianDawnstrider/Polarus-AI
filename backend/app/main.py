@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from app.api.health import router as health_router
 from app.core.config import settings
 from app.core.logging import logger, setup_logging
+from app.middleware.request_id import RequestIDMiddleware
 
 setup_logging()
 logger.info("Server starting")
@@ -28,6 +29,7 @@ app: FastAPI = FastAPI(
     lifespan=lifespan,
 )
 
+app.add_middleware(RequestIDMiddleware)
 app.include_router(health_router)
 
 
