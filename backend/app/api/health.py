@@ -1,4 +1,4 @@
-from faspiptapi import APIRouter
+from fastapi import APIRouter
 
 router = APIRouter()
 
