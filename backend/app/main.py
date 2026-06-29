@@ -5,6 +5,7 @@ from fastapi import APIRouter, FastAPI
 from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException
 
+from app.api.auth import router as auth_router
 from app.api.health import router as health_router
 from app.core.config import settings
 from app.core.logging import logger, setup_logging
@@ -42,6 +43,7 @@ app.add_exception_handler(Exception, generic_exception_handler)
 app.add_middleware(RequestIDMiddleware)
 
 v1_router: APIRouter = APIRouter(prefix="/api/v1")
+v1_router.include_router(auth_router)
 v1_router.include_router(health_router)
 app.include_router(v1_router)
 
